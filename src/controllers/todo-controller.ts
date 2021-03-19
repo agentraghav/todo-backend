@@ -27,6 +27,8 @@ export class TodoController extends BaseController {
       createTodoValidator(),
       this.createTodo
     );
+
+    this.router.delete(`${this.basePath}/:id`, this.deleteTodo);
   }
 
   private createTodo = async (
@@ -50,5 +52,24 @@ export class TodoController extends BaseController {
       new TodoItem({ title })
     );
     res.status(201).json(todo.serialize());
+  };
+
+  private deleteTodo = async (
+    req: ExtendedRequest,
+    res: Response,
+    next: NextFunction
+  ) => {
+    const { id } = req.params;
+
+    const todo = await this.appContext.todoRepository.update(
+      { _id: id, isActive: true },
+      { $set: { isActive: false } }
+    );
+
+    if (todo?._id) {
+      res.status(204).send();
+    } else {
+      res.status(404).send();
+    }
   };
 }
