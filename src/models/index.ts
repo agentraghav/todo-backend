@@ -1,9 +1,5 @@
-import { Account } from './account';
+import { TodoItem } from './todo';
 import { BaseModel } from './base-model';
 import { ModelFactory } from './model-factory';
 
-export {
-  Account,
-  BaseModel,
-  ModelFactory,
-};
+export { TodoItem, BaseModel, ModelFactory };
