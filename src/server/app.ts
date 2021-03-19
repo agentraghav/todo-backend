@@ -7,7 +7,7 @@ import i18n from 'i18n';
 import path from 'path';
 
 import {
-  AccountController,
+  TodoController,
   BaseController,
   HealthCheckController,
 } from '@controllers';
@@ -47,11 +47,11 @@ export class App {
       res.setHeader('Access-Control-Allow-Origin', '*');
       res.setHeader(
         'Access-Control-Allow-Methods',
-        'GET, POST, OPTIONS, PUT, PATCH, DELETE',
+        'GET, POST, OPTIONS, PUT, PATCH, DELETE'
       );
       res.setHeader(
         'Access-Control-Allow-Headers',
-        'Content-Type, Authorization, Accept-Language',
+        'Content-Type, Authorization, Accept-Language'
       );
       next();
     });
@@ -68,7 +68,7 @@ export class App {
             "request - {{req.ip}} - {{res.statusCode}} - {{req.method}} - {{res.responseTime}}ms - {{req.url}} - {{req.headers['user-agent']}}",
           expressFormat: false,
           colorize: true,
-        }),
+        })
       );
     }
 
@@ -81,13 +81,13 @@ export class App {
     this.expressApp.use(
       expressWinston.errorLogger({
         winstonInstance: logger,
-      }),
+      })
     );
   }
 
   public initializeControllers() {
     const controllers: BaseController[] = [
-      new AccountController(this.ctx),
+      new TodoController(this.ctx),
       new HealthCheckController(this.ctx),
     ];
 
