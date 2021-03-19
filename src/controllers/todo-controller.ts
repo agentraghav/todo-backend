@@ -67,9 +67,12 @@ export class TodoController extends BaseController {
     );
 
     if (todo?._id) {
-      res.status(204).send();
+      res.status(200).json(todo.serialize());
     } else {
-      res.status(404).send();
+      const valError = new Errors.NotFoundError(
+        res.__('DEFAULT_ERRORS.RESOURCE_NOT_FOUND')
+      );
+      return next(valError);
     }
   };
 }

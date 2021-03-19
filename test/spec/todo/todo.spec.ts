@@ -61,6 +61,15 @@ describe('POST /todos', () => {
 });
 
 describe('DELETE /todos/:id', () => {
+  it('should return a validation error if id is not Mongo id', async () => {
+    const res = await chai.request(expressApp).delete('/todos/1');
+
+    expect(res).to.have.status(400);
+    expect(res.body)
+      .to.have.nested.property('failures[0].message')
+      .to.equal('Please specify valid todo id');
+  });
+
   it('should return 204 if todo exists else 404', async () => {
     let todo = await testAppContext.todoRepository.save(
       new TodoItem({ title: 'TODO_TEMPORARY' })
