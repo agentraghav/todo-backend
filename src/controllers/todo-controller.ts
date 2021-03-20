@@ -67,7 +67,7 @@ export class TodoController extends BaseController {
     );
 
     if (todo?._id) {
-      res.status(200).json(todo.serialize());
+      res.status(204).json(todo.serialize());
     } else {
       const valError = new Errors.NotFoundError(
         res.__('DEFAULT_ERRORS.RESOURCE_NOT_FOUND')
